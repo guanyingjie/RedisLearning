@@ -1,5 +1,6 @@
 package com.north.learning.redis;
 
+import com.north.learning.redis.dto.PersonDto;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +25,13 @@ public class RedisSerializeTest {
         redisTemplate.opsForValue().set("what we learning", "redis");
         String learning = (String) redisTemplate.opsForValue().get("what we learning");
         assertEquals("redis", learning);
+    }
+
+    @Test
+    void should_save_object_as_value_success_when_use_jdk_serializer() {
+        redisTemplate.opsForValue().set("object", new PersonDto("redis", 20));
+        PersonDto person = (PersonDto) redisTemplate.opsForValue().get("object");
+        assertEquals("redis", person.getName());
     }
 
     @Test
