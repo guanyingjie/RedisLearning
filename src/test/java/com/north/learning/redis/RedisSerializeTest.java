@@ -16,10 +16,21 @@ public class RedisSerializeTest {
     @Autowired
     private RedisTemplate redisTemplate;
 
+    @Autowired
+    private RedisTemplate<String, Object> customizedRedisTemplate;
+
     @Test
     void should_set_key_value_success_when_use_default_redis_template() {
         redisTemplate.opsForValue().set("what we learning", "redis");
         String learning = (String) redisTemplate.opsForValue().get("what we learning");
+        assertEquals("redis", learning);
+    }
+
+    @Test
+    void should_set_key_value_when_use_customized_redis_template() {
+        System.out.println(customizedRedisTemplate.getKeySerializer());
+        customizedRedisTemplate.opsForValue().set("what we are learning", "redis");
+        String learning = (String) customizedRedisTemplate.opsForValue().get("what we are learning");
         assertEquals("redis", learning);
     }
 }
