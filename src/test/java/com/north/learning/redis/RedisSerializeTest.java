@@ -20,6 +20,9 @@ public class RedisSerializeTest {
     @Autowired
     private RedisTemplate<String, Object> customizedRedisTemplate;
 
+    @Autowired
+    private RedisTemplate<String, PersonDto> genericToStringRedisTemplate;
+
     @Test
     void should_set_key_value_success_when_use_default_redis_template() {
         redisTemplate.opsForValue().set("what we learning", "redis");
@@ -32,6 +35,13 @@ public class RedisSerializeTest {
         redisTemplate.opsForValue().set("object", new PersonDto("redis", 20));
         PersonDto person = (PersonDto) redisTemplate.opsForValue().get("object");
         assertEquals("redis", person.getName());
+    }
+
+    @Test
+    void should_save_object_success_when_use_generic_to_string_serializer() {
+        genericToStringRedisTemplate.opsForValue().set("generic", new PersonDto("generic", 18));
+        PersonDto generic = (PersonDto) genericToStringRedisTemplate.opsForValue().get("generic");
+        assertEquals(99, (int) generic.getAge());
     }
 
     @Test

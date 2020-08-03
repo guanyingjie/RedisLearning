@@ -14,4 +14,8 @@ public class PersonDto implements Serializable {
     private static final long serialVersionUID = 590818301412456351L;
     private String name;
     private Integer age;
+
+    public static PersonDto from(String name) {
+        return new PersonDto(name, 99);
+    }
 }
