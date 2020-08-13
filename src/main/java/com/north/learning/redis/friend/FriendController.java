@@ -41,14 +41,16 @@ public class FriendController {
     @GetMapping("/intersectFriend")
     public Set intersectFriend(@RequestParam("userAId") String userAId,
                                @RequestParam("userBId") String userBId) {
-        return null;
+        Set intersect = friendService.intersect(userAId,userBId);
+        return intersect;
     }
 
     //独有好友
     @GetMapping("/differenceFriend")
     public Set differenceFriend(@RequestParam("userAId") String userAId,
                                 @RequestParam("userBId") String userBId) {
-        return null;
+        Set difference = friendService.difference(userAId,userBId);
+        return difference;
 
     }
 

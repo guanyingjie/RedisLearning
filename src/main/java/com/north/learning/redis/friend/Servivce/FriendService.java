@@ -27,10 +27,13 @@ public class FriendService {
         Set<Object> set = redisTemplate.opsForSet().members(userId);
         return set;
     }
-
-
-
-
-
+    public Set intersect(String userAid,String userBid){
+        Set intersect = redisTemplate.opsForSet().intersect(userAid,userBid);
+        return intersect;
+    }
+    public Set difference(String userAid,String userBid){
+        Set difference = redisTemplate.opsForSet().difference(userAid,userBid);
+        return difference;
+    }
 
 }
