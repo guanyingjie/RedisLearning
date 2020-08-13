@@ -1,6 +1,6 @@
 package com.north.learning.redis.configuration;
 
-import com.alibaba.fastjson.support.spring.GenericFastJsonRedisSerializer;
+//import com.alibaba.fastjson.support.spring.GenericFastJsonRedisSerializer;
 import com.north.learning.redis.dto.PersonDto;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -34,7 +34,7 @@ public class RedisConfiguration {
     public RedisTemplate<String, Object> genericFastToJsonRedisTemplate(RedisConnectionFactory redisConnectionFactory) {
         RedisTemplate<String, Object> redisTemplate = new RedisTemplate<>();
         redisTemplate.setKeySerializer(RedisSerializer.string());
-        redisTemplate.setValueSerializer(new GenericFastJsonRedisSerializer());
+//        redisTemplate.setValueSerializer(new GenericFastJsonRedisSerializer());
         redisTemplate.setConnectionFactory(redisConnectionFactory);
         return redisTemplate;
     }

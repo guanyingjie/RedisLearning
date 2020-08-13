@@ -20,6 +20,7 @@ public class RankService {
     private static String SCORE_RANK = "score_rank";
 
     public void add(String value, double score) {
+
         redisTemplate.opsForZSet().add(SCORE_RANK, value, score);
     }
 
