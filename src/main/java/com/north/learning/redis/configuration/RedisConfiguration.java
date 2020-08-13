@@ -1,5 +1,6 @@
 package com.north.learning.redis.configuration;
 
+import com.alibaba.fastjson.support.spring.GenericFastJsonRedisSerializer;
 import com.north.learning.redis.dto.PersonDto;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -26,6 +27,24 @@ public class RedisConfiguration {
         redisTemplate.setKeySerializer(RedisSerializer.java());
         redisTemplate.setValueSerializer(new GenericToStringSerializer<>(PersonDto.class));
         redisTemplate.setConnectionFactory(redisConnectionFactory);
+        return redisTemplate;
+    }
+
+    @Bean
+    public RedisTemplate<String, Object> genericFastToJsonRedisTemplate(RedisConnectionFactory redisConnectionFactory) {
+        RedisTemplate<String, Object> redisTemplate = new RedisTemplate<>();
+        redisTemplate.setKeySerializer(RedisSerializer.string());
+        redisTemplate.setValueSerializer(new GenericFastJsonRedisSerializer());
+        redisTemplate.setConnectionFactory(redisConnectionFactory);
+        return redisTemplate;
+    }
+
+    @Bean(name = "genericJacksonToJson")
+    RedisTemplate<String, Object> redisGenericToJsonTemplate(RedisConnectionFactory redisConnectionFactory) {
+        RedisTemplate<String, Object> redisTemplate = new RedisTemplate<>();
+        redisTemplate.setConnectionFactory(redisConnectionFactory);
+        redisTemplate.setKeySerializer(RedisSerializer.string());
+        redisTemplate.setValueSerializer(RedisSerializer.json());
         return redisTemplate;
     }
 
